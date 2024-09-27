@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
-import { usePokedexStore } from '@/stores/pokedex';
+import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 
 import { mount } from '@vue/test-utils';
 import PokedexList from './PokedexList.vue';
@@ -17,14 +17,14 @@ describe('PokedexList', () => {
 
   it('renderizando quantidade de itens corretas.', async () => {
     const wrapper = mount(PokedexList);
-    const store = usePokedexStore();
+    const store = usePokedexPaginationStore();
     await store.setItems();
     expect(wrapper.findAll('#pokedex .list li').length).toBe(store.items.length);
   })
 
   it('renderizando "nome", "numero" e "imagem"', async () => {
     const wrapper = mount(PokedexList);
-    const store = usePokedexStore();
+    const store = usePokedexPaginationStore();
     await store.setItems();
     const firstItem = store.items[0];
     expect(wrapper.text()).toContain(firstItem.name);
