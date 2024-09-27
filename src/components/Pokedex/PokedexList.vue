@@ -1,7 +1,7 @@
 <template>
-    <section>
+    <section id="pokedex">
         <h1 v-if="pokedex.loading">Carregando...</h1>
-        <ul v-else>
+        <ul class="list" v-else>
             <li v-for="pokemon in pokedex.items" :key="pokemon.id">
                 <h2>{{ pokemon.name }}</h2>
                 <p>{{ pokemon.id }}</p>
@@ -18,3 +18,18 @@
 import { usePokedexStore } from '@/stores/pokedex';
 const pokedex = usePokedexStore();
 </script>
+
+<style lang="scss" scoped>
+#pokedex {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+</style>

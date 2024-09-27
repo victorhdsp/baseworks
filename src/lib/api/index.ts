@@ -19,8 +19,8 @@ async function getAll(options: IGetAllOptions): Promise<IPokemonPreview[]> {
             id: parseInt(id),
             name: item.name,
             image: {
-            gif: `${config.POKEMON_IMAGE_GIF_URL}${id}.gif`,
-            png: `${config.POKEMON_IMAGE_PNG_URL}${id}.png`,
+                gif: `${config.POKEMON_IMAGE_GIF_URL}${id}.gif`,
+                png: `${config.POKEMON_IMAGE_PNG_URL}${id}.png`,
             }
         }
     });

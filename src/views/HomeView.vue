@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import PokemonList from '@/components/PokedexList/PokedexList.vue'
+import PokemonList from '@/components/Pokedex/PokedexList.vue'
 </script>
