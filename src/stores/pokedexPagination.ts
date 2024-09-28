@@ -58,6 +58,7 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
       total.value = Object.keys(newItems).length;
     } else {
       newItems = items.value;
+      total.value = count.value;
     }
 
     if (hasPagination) {
