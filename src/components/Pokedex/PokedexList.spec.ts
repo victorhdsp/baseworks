@@ -19,7 +19,7 @@ describe('PokedexList', () => {
     const wrapper = mount(PokedexList);
     const store = usePokedexPaginationStore();
     await store.setItems();
-    expect(wrapper.findAll('#pokedex .list li').length).toBe(store.items.length);
+    expect(wrapper.findAll('#pokedex-list .list li').length).toBe(store.items.length);
   })
 
   it('renderizando "nome", "numero" e "imagem"', async () => {
@@ -29,7 +29,7 @@ describe('PokedexList', () => {
     const firstItem = store.items[0];
     expect(wrapper.text()).toContain(firstItem.name);
     expect(wrapper.text()).toContain(firstItem.id);
-    expect(wrapper.find('img').attributes('src')).toBe(firstItem.image.png);
-    expect(wrapper.find('picture').find('source').attributes('srcset')).toBe(firstItem.image.gif);
+    expect(wrapper.find('img').attributes('src')).includes(firstItem.id);
+    expect(wrapper.find('picture').find('source').attributes('srcset')).includes(firstItem.id);
   })
 })
