@@ -25,15 +25,13 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
         items.value[pokemon.id] = pokemon;
     });
     count.value = data.count;
-    if (total.value === 0)
-      total.value = data.count;
     loading.value = false;
   }
 
-  const setCurrent = () => {
+  const setCurrent = async () => {
     const page = Number(router.currentRoute.value.query.page) || 1;
     while (loaded.value <= (page - 1) * LIMIT) {
-      setItems(loaded.value);
+      await setItems(loaded.value);
       loaded.value++;
     }
   }
@@ -53,6 +51,8 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     if (search.value) {
       for (const key in items.value) {
           if (items.value[key].name.includes(search.value)) 
+            newItems[key] = items.value[key];
+          if (items.value[key].id === Number(search.value)) 
             newItems[key] = items.value[key];
       }
       total.value = Object.keys(newItems).length;
@@ -75,7 +75,10 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   });
 
 
-  onMounted(setCurrent);
+  onMounted(async () => { 
+    await setCurrent();
+    total.value = count.value;
+  });
   watch(router.currentRoute, setCurrent);
 
   return { 
