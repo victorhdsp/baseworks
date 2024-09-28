@@ -33,7 +33,7 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   watch(router.currentRoute, setCurrent);
 
   const filterdItems = computed(() => {
-    let newList = Object.values(items.value);
+    const newList: Record<number, IPokemonPreview> = { ...items.value };
     const hasPagination = true;
     
     if (hasPagination) {
@@ -41,7 +41,11 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
       const start = (page - 1) * size.value;
       const end = page * size.value;
 
-      newList = newList.slice(start, end);
+      for (const key in newList) {
+        if (Number(key) < start || Number(key) >= end) {
+          delete newList[key];
+        }
+      }
     }
 
     return newList;
