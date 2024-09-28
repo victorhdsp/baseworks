@@ -25,7 +25,7 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   }
 
   const setCurrent = () => {
-    const page = Number(router.currentRoute.value.query.page) || 0;
+    const page = Number(router.currentRoute.value.query.page) || 1;
     setItems((page - 1) * LIMIT);
   }
 

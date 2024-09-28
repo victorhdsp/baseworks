@@ -19,7 +19,7 @@ describe('PokedexList', () => {
     const wrapper = mount(PokedexList);
     const store = usePokedexPaginationStore();
     await store.setItems();
-    expect(wrapper.findAll('#pokedex .list li').length).toBe(store.items.length);
+    expect(wrapper.findAll('#pokedex-list .list li').length).toBe(store.items.length);
   })
 
   it('renderizando "nome", "numero" e "imagem"', async () => {

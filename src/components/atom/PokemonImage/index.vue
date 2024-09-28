@@ -10,7 +10,7 @@
 import config from '@/lib/config';
 const props = defineProps<{
     alt: string;
-    index: string;
+    index: string | number;
 }>();
 
 const gif = `${config.POKEMON_IMAGE_GIF_URL}${props.index}.gif`;

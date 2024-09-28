@@ -6,10 +6,7 @@
                 <RouterLink :to="`/pokemon/${pokemon.id}`">
                     <h2>{{ pokemon.name }}</h2>
                     <p>{{ pokemon.id }}</p>
-                    <picture>
-                        <source :srcset="pokemon.image.gif" type="image/gif" />
-                        <img :src="pokemon.image.png" :alt="pokemon.name" />
-                    </picture>
+                    <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
                 </RouterLink>
             </li>
         </ul>
@@ -18,6 +15,7 @@
 
 <script setup lang="ts">
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import PokemonImage from '@/components/atom/PokemonImage/index.vue';
 const pokedex = usePokedexPaginationStore();
 </script>
 
