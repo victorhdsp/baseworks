@@ -29,7 +29,7 @@ describe('PokedexList', () => {
     const firstItem = store.items[0];
     expect(wrapper.text()).toContain(firstItem.name);
     expect(wrapper.text()).toContain(firstItem.id);
-    expect(wrapper.find('img').attributes('src')).toBe(firstItem.image.png);
-    expect(wrapper.find('picture').find('source').attributes('srcset')).toBe(firstItem.image.gif);
+    expect(wrapper.find('img').attributes('src')).includes(firstItem.id);
+    expect(wrapper.find('picture').find('source').attributes('srcset')).includes(firstItem.id);
   })
 })

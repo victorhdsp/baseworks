@@ -1,5 +1,4 @@
-import config from '@/lib/config';
-import { type IPokemonPreview } from '@/lib/types/pokemon.d';
+import { type IPokemonPreview } from '@/lib/types/api.d';
 
 function parseResults(results: any): IPokemonPreview[] {
     return results.map((item: any) => {
@@ -7,11 +6,7 @@ function parseResults(results: any): IPokemonPreview[] {
 
         return {
             id: parseInt(id),
-            name: item.name,
-            image: {
-                gif: `${config.POKEMON_IMAGE_GIF_URL}${id}.gif`,
-                png: `${config.POKEMON_IMAGE_PNG_URL}${id}.png`,
-            }
+            name: item.name
         }
     })
 }

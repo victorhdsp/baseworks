@@ -149,7 +149,7 @@ interface PastType {
     types: Type[];
 }
   
-export interface IPokemon {
+export interface IPokemonAPI {
     id: number;
     name: string;
     base_experience: number;
@@ -168,13 +168,4 @@ export interface IPokemon {
     stats: Stat[];
     types: Type[];
     past_types: PastType[];
-}
-
-export interface IPokemonPreview {
-    id: number;
-    name: string;
-    image: {
-        gif: string;
-        png: string;
-    };
 }

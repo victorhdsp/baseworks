@@ -13,8 +13,16 @@ async function fetchNamedAPIResourcePokemon(options: IGetAllOptions): Promise<an
     return data;
 }
 
+async function fetchPokemonId(id: string): Promise<any> {
+    const url = `${config.POKEMON_API_URL}/pokemon/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
 const routes = {
     fetchNamedAPIResourcePokemon,
+    fetchPokemonId
 };
 
 export default routes;

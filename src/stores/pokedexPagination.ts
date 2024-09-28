@@ -1,6 +1,6 @@
 import { ref, onMounted, watch } from 'vue';
 import { defineStore } from 'pinia';
-import type { IPokemonPreview } from '@/lib/types/pokemon';
+import type { IPokemonPreview } from '@/lib/types/api.d';
 import api, { type IGetAllOptions } from '@/lib/api';
 import router from '@/router';
 
