@@ -1,7 +1,8 @@
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { defineStore } from 'pinia';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
 import api, { type IGetAllOptions } from '@/lib/api';
+import router from '@/router';
 
 const LIMIT = 12;
 
@@ -18,18 +19,18 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     const data = await api.getAll(options);
 
     items.value = data.results;
-    current.value = offset / LIMIT;
+    current.value = (offset / LIMIT) + 1;
     total.value = data.count;
     loading.value = false;
   }
 
-  const setCurrent = (page: number) => {
-    setItems(page * LIMIT);
+  const setCurrent = () => {
+    const page = Number(router.currentRoute.value.query.page) || 0;
+    setItems((page - 1) * LIMIT);
   }
 
-  onMounted(() => {
-    setItems();
-  });
+  onMounted(setCurrent);
+  watch(router.currentRoute, setCurrent);
 
   return { 
     loading,
@@ -37,7 +38,6 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     size,
     current,
     total,
-    setItems,
-    setCurrent
+    setItems
   };
 })

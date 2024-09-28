@@ -8,10 +8,11 @@
 <script setup lang="ts">
 import { ElPagination } from 'element-plus';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import router from '@/router';
 const pokedex = usePokedexPaginationStore();
 
 const onPageChange = (page: number) => {
-    pokedex.setCurrent(page);
+    router.push({ query: { page } });
 };
 </script>
 
