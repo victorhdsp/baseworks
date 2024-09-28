@@ -1,11 +1,13 @@
 <template>
   <main>
+    <PokedexPageHeader />
     <PokemonList />
     <PokemonPagination />
   </main>
 </template>
 
 <script setup lang="ts">
-import PokemonList from '@/components/Pokedex/PokedexList.vue';
-import PokemonPagination from '@/components/Pokedex/PokedexPagination.vue';
+import PokedexPageHeader from '@/components/organism/PokedexPageHeader/index.vue';
+import PokemonList from '@/components/organism/PokedexList/index.vue';
+import PokemonPagination from '@/components/organism/PokedexPagination/index.vue';
 </script>

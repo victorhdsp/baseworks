@@ -21,15 +21,12 @@ const pokedex = usePokedexPaginationStore();
 
 <style lang="scss" scoped>
 #pokedex-list {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    @apply w-full h-full flex flex-col;
+    @apply container;
 
     .list {
-        display: grid;
+        @apply grid gap-4;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
     }
 }
 </style>

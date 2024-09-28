@@ -21,15 +21,7 @@ const onPageChange = (page: number) => {
 
 <style lang="scss" scoped>
 #pokedex-pagination {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-
-    .list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1rem;
-    }
+    @apply w-full h-full flex flex-col;
+    @apply container;
 }
 </style>

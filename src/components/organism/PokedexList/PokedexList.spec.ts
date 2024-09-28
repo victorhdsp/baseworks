@@ -3,7 +3,7 @@ import { setActivePinia, createPinia } from 'pinia';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 
 import { mount } from '@vue/test-utils';
-import PokedexList from './PokedexList.vue';
+import PokedexList from './index.vue';
 
 describe('PokedexList', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('PokedexList', () => {
     const wrapper = mount(PokedexList);
     const store = usePokedexPaginationStore();
     await store.setItems();
-    expect(wrapper.findAll('#pokedex-list .list li').length).toBe(store.items.length);
+    expect(wrapper.findAll('#pokedex-list .list li').length).toBe(Object.keys(store.items).length);
   })
 
   it('renderizando "nome", "numero" e "imagem"', async () => {
