@@ -1,4 +1,4 @@
-import type { NamedAPIResource } from '../types/api';
+import type { IPokemon, NamedAPIResource } from '../types/api';
 import type { IPokemonAPI } from '../types/pokemon';
 import controller from './controller';
 import routes from './routes';
@@ -15,9 +15,10 @@ async function getAll(options: IGetAllOptions): Promise<NamedAPIResource> {
     return { results, count: data.count };
 }
 
-async function getUnique(id: string): Promise<IPokemonAPI> {
+async function getUnique(id: string): Promise<IPokemon> {
     const data:IPokemonAPI = await routes.fetchPokemonId(id);
-    const result = data;
+    const result:IPokemon = controller.parsePokemon(data);
+    
     return result;
 }
 

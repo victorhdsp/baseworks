@@ -1,8 +1,11 @@
 <template>
     <PokemonPageHeader name="Articuno" :index="2" />
     <main>
-        <section id="pokemon-view">
-            <div class="pokemon-view__image"></div>
+        <div v-if="!pokemon">
+            Carregando...
+        </div>
+        <section v-else id="pokemon-view">
+            <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
             <div class="pokemon-caracteristics"></div>
             <div class="pokemon-abilities"></div>
             <div class="pokemon-stats"></div>
@@ -15,9 +18,18 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import type { IPokemon } from '@/lib/types/api';
 import PokemonPageHeader from '@/components/organism/PokemonPageHeader/index.vue';
+import PokemonImage from '@/components/atom/PokemonImage/index.vue';
 import api from '@/lib/api';
-console.log(api.getUnique("1"));
+
+const pokemon = ref<IPokemon | null>(null);
+
+onMounted(async () => {
+    const data = await api.getUnique('1');
+    pokemon.value = data;
+});
 </script>
 
 <style lang="scss" scoped>
