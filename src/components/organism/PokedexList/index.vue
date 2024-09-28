@@ -1,8 +1,10 @@
 <template>
     <section id="pokedex-list">
-        <h1 v-if="pokedex.loading">Carregando...</h1>
+        <h1 v-if="!pokedex.pokemons">
+            Carregando...
+        </h1>
         <ul class="list" v-else>
-            <li v-for="pokemon in pokedex.items" :key="pokemon.id">
+            <li v-for="pokemon in pokedex.pokemons" :key="pokemon.id">
                 <RouterLink :to="`/pokemon/${pokemon.id}`">
                     <h2>{{ pokemon.name }}</h2>
                     <p>{{ pokemon.id }}</p>

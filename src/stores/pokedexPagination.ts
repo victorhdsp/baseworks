@@ -1,93 +1,54 @@
-import { ref, onMounted, watch, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { defineStore } from 'pinia';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
-import api, { type IGetAllOptions } from '@/lib/api';
 import router from '@/router';
-
-const LIMIT = 9;
+import { usePokedexStore } from './pokedex';
+import { POKEDEX_FETCH_LIMIT } from '@/lib/config';
 
 export const usePokedexPaginationStore = defineStore('pokedex-pagination', () => {
-  const loading = ref(true);
-
-  const items = ref<Record<string, IPokemonPreview>>({});
-  const size = ref<number>(LIMIT);
-  const count = ref<number>(0);
-  const total = ref<number>(0);
-  const loaded = ref<number>(0);
-  const search = ref<string>('');
+  const pokedex = usePokedexStore();
   
-  const setItems = async (offset = 0) => {
-    const options: IGetAllOptions = { limit: LIMIT, offset };
-    const data = await api.getAll(options);
-
-    data.results.forEach((pokemon) => {
-      if (pokemon.id && !items.value[pokemon.id])
-        items.value[pokemon.id] = pokemon;
-    });
-    count.value = data.count;
-    loading.value = false;
-  }
-
-  const setCurrent = async () => {
-    const page = Number(router.currentRoute.value.query.page) || 1;
-    while (loaded.value <= (page - 1) * LIMIT) {
-      await setItems(loaded.value);
-      loaded.value++;
-    }
-  }
+  const perPage = ref<number>(POKEDEX_FETCH_LIMIT);
+  const total = ref<number>(pokedex.size);
+  const search = ref<string>('');
 
   const setSeach = (value: string) => {
     search.value = value;
-    while (loaded.value <= count.value) {
-      setItems(loaded.value);
-      loaded.value++;
-    }
+    pokedex.populate(pokedex.size);
   }
 
-  const filterdItems = computed(() => {
-    let newItems: Record<string, IPokemonPreview> = {};
-    const hasPagination = true;
+  const filterBySearch = (pokemon: IPokemonPreview) => {
+    const _search = search.value.toLowerCase();
+    return pokemon.name.includes(_search);
+  }
 
+  const filterdPokemons = computed(() => {
+    let pokemons: Record<string, IPokemonPreview> = {};
     if (search.value) {
-      for (const key in items.value) {
-          if (items.value[key].name.includes(search.value)) 
-            newItems[key] = items.value[key];
-          if (items.value[key].id === Number(search.value)) 
-            newItems[key] = items.value[key];
-      }
-      total.value = Object.keys(newItems).length;
+      for (const id in pokedex.pokemons)
+        if (filterBySearch(pokedex.pokemons[id]))
+          pokemons[id] = pokedex.pokemons[id];
+      total.value = Object.keys(pokemons).length;
     } else {
-      newItems = items.value;
-      total.value = count.value;
+      pokemons = pokedex.pokemons
+      total.value = pokedex.count;
     }
 
-    if (hasPagination) {
-      const offset = (Number(router.currentRoute.value.query.page) - 1) * LIMIT;
-      const limit = offset + LIMIT;
-      const itemsKeys = Object.keys(newItems);
-      const keys = itemsKeys.slice(offset, limit);
-      const newItemsPaginated: Record<string, IPokemonPreview> = {};
-      keys.forEach((key) => {
-        newItemsPaginated[key] = newItems[key];
-      });
-      return newItemsPaginated;
-    }
-    return newItems;
+    const page = Number(router.currentRoute.value.query.page) || 1;
+    const start = (page - 1) * perPage.value;
+    const end = start + perPage.value;
+    return Object.values(pokemons).slice(start, end);
   });
 
-
-  onMounted(async () => { 
-    await setCurrent();
-    total.value = count.value;
+  watch(router.currentRoute, () => {
+    const page = Number(router.currentRoute.value.query.page) || 1;
+    pokedex.populate(page - 1);
   });
-  watch(router.currentRoute, setCurrent);
 
   return { 
-    loading,
-    items: filterdItems,
-    size,
+    pokemons: filterdPokemons,
+    perPage,
     total,
-    setItems,
     setSeach
   };
 })
