@@ -1,43 +1,93 @@
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue';
 import { defineStore } from 'pinia';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
 import api, { type IGetAllOptions } from '@/lib/api';
 import router from '@/router';
 
-const LIMIT = 12;
+const LIMIT = 9;
 
 export const usePokedexPaginationStore = defineStore('pokedex-pagination', () => {
   const loading = ref(true);
 
-  const items = ref<IPokemonPreview[]>([]);
+  const items = ref<Record<string, IPokemonPreview>>({});
   const size = ref<number>(LIMIT);
-  const current = ref<number>(0);
+  const count = ref<number>(0);
   const total = ref<number>(0);
-
+  const loaded = ref<number>(0);
+  const search = ref<string>('');
+  
   const setItems = async (offset = 0) => {
     const options: IGetAllOptions = { limit: LIMIT, offset };
     const data = await api.getAll(options);
 
-    items.value = data.results;
-    current.value = (offset / LIMIT) + 1;
-    total.value = data.count;
+    data.results.forEach((pokemon) => {
+      if (pokemon.id && !items.value[pokemon.id])
+        items.value[pokemon.id] = pokemon;
+    });
+    count.value = data.count;
     loading.value = false;
   }
 
-  const setCurrent = () => {
+  const setCurrent = async () => {
     const page = Number(router.currentRoute.value.query.page) || 1;
-    setItems((page - 1) * LIMIT);
+    while (loaded.value <= (page - 1) * LIMIT) {
+      await setItems(loaded.value);
+      loaded.value++;
+    }
   }
 
-  onMounted(setCurrent);
+  const setSeach = (value: string) => {
+    search.value = value;
+    while (loaded.value <= count.value) {
+      setItems(loaded.value);
+      loaded.value++;
+    }
+  }
+
+  const filterdItems = computed(() => {
+    let newItems: Record<string, IPokemonPreview> = {};
+    const hasPagination = true;
+
+    if (search.value) {
+      for (const key in items.value) {
+          if (items.value[key].name.includes(search.value)) 
+            newItems[key] = items.value[key];
+          if (items.value[key].id === Number(search.value)) 
+            newItems[key] = items.value[key];
+      }
+      total.value = Object.keys(newItems).length;
+    } else {
+      newItems = items.value;
+      total.value = count.value;
+    }
+
+    if (hasPagination) {
+      const offset = (Number(router.currentRoute.value.query.page) - 1) * LIMIT;
+      const limit = offset + LIMIT;
+      const itemsKeys = Object.keys(newItems);
+      const keys = itemsKeys.slice(offset, limit);
+      const newItemsPaginated: Record<string, IPokemonPreview> = {};
+      keys.forEach((key) => {
+        newItemsPaginated[key] = newItems[key];
+      });
+      return newItemsPaginated;
+    }
+    return newItems;
+  });
+
+
+  onMounted(async () => { 
+    await setCurrent();
+    total.value = count.value;
+  });
   watch(router.currentRoute, setCurrent);
 
   return { 
     loading,
-    items,
+    items: filterdItems,
     size,
-    current,
     total,
-    setItems
+    setItems,
+    setSeach
   };
 })
