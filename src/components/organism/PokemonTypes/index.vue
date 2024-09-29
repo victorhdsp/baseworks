@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import type { IPokemon } from '@/lib/types/pokemon';
-import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
+import PokemonTag from '@/components/atom/PokemonTag/index.vue';
 
 const props = defineProps<{ types: IPokemon['types'] }>();
 </script>
@@ -16,11 +16,5 @@ const props = defineProps<{ types: IPokemon['types'] }>();
 .pokemon-types {
     @apply flex flex-wrap items-center gap-2;
     @apply h-max;
-}
-
-@media screen and (max-width: 768px) {
-    .pokemon-types {
-        @apply flex-col;
-    }
 }
 </style>

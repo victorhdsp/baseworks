@@ -1,35 +1,34 @@
 <template>
     <section id="pokedex-list">
-        <Loading v-if="!pokedex.pokemons" />
+        <h1 v-if="!pokedex.pokemons">
+            Carregando...
+        </h1>
         <ul class="list" v-else>
-            <Card is="li" v-for="pokemon in pokedex.pokemons" :key="pokemon.id">
-                <PokemonCard :pokemon="pokemon" />
-            </Card>
+            <li v-for="pokemon in pokedex.pokemons" :key="pokemon.id">
+                <RouterLink :to="`/pokemon/${pokemon.id}`">
+                    <h2>{{ pokemon.name }}</h2>
+                    <p>{{ pokemon.id }}</p>
+                    <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
+                </RouterLink>
+            </li>
         </ul>
     </section>
 </template>
 
 <script setup lang="ts">
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
-import Card from '@/components/atom/Card/index.vue';
-import PokemonCard from '@/components/molecule/PokemonCard/index.vue';
-import Loading from '@/components/molecule/Loading/index.vue';
+import PokemonImage from '@/components/atom/PokemonImage/index.vue';
 const pokedex = usePokedexPaginationStore();
 </script>
 
 <style lang="scss" scoped>
 #pokedex-list {
-    @apply w-full flex flex-col;
+    @apply w-full h-full flex flex-col;
+    @apply container;
 
     .list {
-        @apply grid gap-4 grid-cols-3 grid-rows-3;
-        @apply h-full;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    #pokedex-list .list {
-        @apply flex flex-col;
+        @apply grid gap-4;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
 </style>

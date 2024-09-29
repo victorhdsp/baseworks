@@ -46,19 +46,11 @@ function parseEvolutionChain(evolutionChain: any): IPokemonPreview[] {
     return parsedChain;
 }
 
-function parseDescription(flavor_text_entries: any): string[] {
-    const data:any[] = flavor_text_entries.filter((item: any) => item.language.name === 'en');
-    let descriptions = data.map((item: any) => item.flavor_text);
-    descriptions = descriptions.filter((item, index) => descriptions.indexOf(item) === index);
-    return descriptions.slice(0, 3);
-}
-
 const controller = {
     parseResults,
     parseStats,
     parseTypes,
-    parseEvolutionChain,
-    parseDescription
+    parseEvolutionChain
 };
 
 export default controller;

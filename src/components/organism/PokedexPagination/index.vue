@@ -1,7 +1,7 @@
 <template>
     <section id="pokedex-pagination">
-        <el-pagination :total="pokedex.total" :page-size="pokedex.perPage" :current-page="currentPage"
-            @current-change="onPageChange" background layout="prev, pager, next" small />
+        <el-pagination :total="pokedex.total" :page-size="pokedex.size" :current-page="currentPage"
+            @current-change="onPageChange" background layout="prev, pager, next" />
     </section>
 </template>
 
@@ -9,27 +9,19 @@
 import { ElPagination } from 'element-plus';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 import router from '@/router';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 const pokedex = usePokedexPaginationStore();
 const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
 
 const onPageChange = (page: number) => {
     router.push({ query: { page } });
-};
-watch(router.currentRoute, () => {
-    const page = Number(router.currentRoute.value.query.page) || 1;
     currentPage.value = page;
-});
+};
 </script>
 
 <style lang="scss" scoped>
 #pokedex-pagination {
     @apply w-full h-full flex flex-col;
-}
-
-@media screen and (max-width: 768px) {
-    #pokedex-pagination {
-        @apply items-center;
-    }
+    @apply container;
 }
 </style>

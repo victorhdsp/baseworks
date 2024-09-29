@@ -28,7 +28,6 @@ async function getUnique(id: string): Promise<IPokemon> {
         height: pokemon.height,
         weight: pokemon.weight,
         abilities: pokemon.abilities,
-        description: controller.parseDescription(specie.flavor_text_entries),
         stats: controller.parseStats(pokemon.stats),
         types: controller.parseTypes(pokemon.types),
         weakness: [], //faltando

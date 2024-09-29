@@ -3,14 +3,13 @@ import { defineStore } from 'pinia';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
 import router from '@/router';
 import { usePokedexStore } from './pokedex';
-import { POKEDEX_FETCH_LIMIT_DESKTOP, POKEDEX_FETCH_LIMIT_MOBILE } from '@/lib/config';
+import { POKEDEX_FETCH_LIMIT } from '@/lib/config';
 import api from '@/lib/api';
-import { isMobile } from '@basitcodeenv/vue3-device-detect';
 
 export const usePokedexPaginationStore = defineStore('pokedex-pagination', () => {
   const pokedex = usePokedexStore();
   
-  const perPage = ref<number>(isMobile ? POKEDEX_FETCH_LIMIT_MOBILE : POKEDEX_FETCH_LIMIT_DESKTOP);
+  const perPage = ref<number>(POKEDEX_FETCH_LIMIT);
   const pokemons = ref<Record<string, IPokemonPreview>>(pokedex.pokemons);
   const count = ref<number | null>(null);
   const filteredTotal = ref<number>(0);
