@@ -12,6 +12,7 @@ export const usePokedexStore = defineStore('pokedex', () => {
   const loaded = ref<number>(0);
   const count = ref<number>(1);
   const size = ref<number>(0);
+  const loading = ref<boolean>(true);
   
   const byOffset = async (value = 0) => {
     if (Object.keys(pokemons.value).length >= count.value) return;
@@ -29,17 +30,21 @@ export const usePokedexStore = defineStore('pokedex', () => {
   }
 
   const addInDatabase = async (data: IPokemonPreview[]) => {
+    loading.value = true;
     data.forEach((pokemon) => {
       if (pokemon.id && !pokemons.value[pokemon.id])
         pokemons.value[pokemon.id] = pokemon;
     });
+    loading.value = false;
   }
 
   const populate = async (end: number) => {
+    loading.value = true;
     while (loaded.value <= end) {
       byOffset(loaded.value);
       loaded.value++;
     }
+    loading.value = false;
   }
 
   onMounted(async () => { 
@@ -49,6 +54,7 @@ export const usePokedexStore = defineStore('pokedex', () => {
 
   return { 
     pokemons,
+    loading,
     size,
     count,
     populate,
