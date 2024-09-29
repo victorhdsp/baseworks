@@ -21,7 +21,6 @@ const onSearch = () => {
 <style lang="scss" scoped>
 .pokedex-page-header {
     @apply py-3;
-    @apply container;
     @apply flex items-center justify-between;
     @apply border-b border-gray-200;
 }

@@ -2,7 +2,7 @@
     <div v-if="!pokemon">
         Carregando...
     </div>
-    <main v-else>
+    <main class="main" v-else>
         <PokemonPageHeader :name="pokemon.name" :index="pokemon.id" />
         <section id="pokemon-view">
             <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
@@ -38,13 +38,17 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-#pokemon-view {
-    @apply grid grid-cols-2 gap-4;
-    grid-template-rows: repeat(3, minmax(0, 1fr));
+.main {
     @apply container;
 
-    .evolutions {
-        @apply col-start-2 row-start-1 row-span-3;
+    #pokemon-view {
+        @apply grid grid-cols-2 gap-4;
+        grid-template-rows: repeat(3, minmax(0, 1fr));
+        @apply container;
+
+        .evolutions {
+            @apply col-start-2 row-start-1 row-span-3;
+        }
     }
 }
 </style>

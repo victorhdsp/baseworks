@@ -1,6 +1,6 @@
 <template>
     <section id="pokedex-pagination">
-        <el-pagination :total="pokedex.total" :page-size="pokedex.size" :current-page="currentPage"
+        <el-pagination :total="pokedex.total" :page-size="pokedex.perPage" :current-page="currentPage"
             @current-change="onPageChange" background layout="prev, pager, next" />
     </section>
 </template>
@@ -22,6 +22,5 @@ const onPageChange = (page: number) => {
 <style lang="scss" scoped>
 #pokedex-pagination {
     @apply w-full h-full flex flex-col;
-    @apply container;
 }
 </style>

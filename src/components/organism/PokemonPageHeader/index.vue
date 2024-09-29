@@ -25,7 +25,6 @@ const props = defineProps<{
 <style lang="scss" scoped>
 #pokemon-page-header {
     @apply py-3;
-    @apply container;
     @apply flex items-center justify-between;
     @apply border-b border-gray-200;
 
