@@ -1,12 +1,19 @@
 <template>
     <div class="pokemon-card">
-        <RouterLink class="content" :to="`/pokemon/${pokemon.id}`">
-            <div class="img">
+        <div class="content">
+            <RouterLink class="img" :to="`/pokemon/${pokemon.id}`">
                 <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
+            </RouterLink>
+            <div class="header">
+                <RouterLink :to="`/pokemon/${pokemon.id}`">
+                    <h2 class="title">{{ pokemon.name }}</h2>
+                </RouterLink>
+                <button class="favorite" @click="toggleFavorite">
+                    {{ pokemon.favorite ? '❤️' : '🤍' }}
+                </button>
             </div>
-            <h2 class="title">{{ pokemon.name }}</h2>
             <PokemonNumber :index="pokemon.id" />
-        </RouterLink>
+        </div>
     </div>
 </template>
 
@@ -15,7 +22,14 @@ import PokemonImage from '@/components/molecule/PokemonImage/index.vue';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
 import PokemonNumber from '@/components/atom/PokemonNumber/index.vue';
 import { RouterLink } from 'vue-router';
-defineProps<{ pokemon: IPokemonPreview }>();
+import { usePokedexStore } from '@/stores/pokedex';
+
+const props = defineProps<{ pokemon: IPokemonPreview }>();
+const pokedex = usePokedexStore();
+
+const toggleFavorite = () => {
+    pokedex.toggleFavoriteById(props.pokemon.id);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -28,20 +42,24 @@ defineProps<{ pokemon: IPokemonPreview }>();
         @apply relative;
         @apply h-full;
 
-        .title {
-            @apply text-lg whitespace-nowrap text-ellipsis;
-            @apply overflow-hidden;
+        .img {
+            @apply w-full;
+            @apply max-h-36;
+            @apply pb-2;
+            @apply aspect-square
+        }
+
+        .header {
+            @apply flex justify-between items-center;
+
+            .title {
+                @apply text-lg whitespace-nowrap text-ellipsis;
+                @apply overflow-hidden;
+            }
         }
 
         .number {
             @apply text-sm;
-        }
-
-        .img {
-            @apply w-full;
-            @apply max-h-32;
-            @apply pb-2;
-            @apply aspect-square
         }
     }
 }

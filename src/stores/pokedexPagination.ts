@@ -41,6 +41,21 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     });
   }
 
+  const setFavorites = async (favorite: boolean) => {
+    if (!favorite) {
+      pokemons.value = pokedex.pokemons;
+      count.value = pokedex.count;
+      return;
+    }
+    pokemons.value = {};
+    count.value = 0;
+    const favorites = Object.values(pokedex.pokemons).filter(pokemon => pokemon.favorite);
+    favorites.forEach((pokemon: IPokemonPreview) => {
+      pokemons.value[pokemon.id] = pokemon;
+    });
+    count.value = favorites.length;
+  }
+
   const filterBySearch = (pokemon: IPokemonPreview) => {
     const _search = search.value.toLowerCase();
     return pokemon.name.includes(_search) || `${pokemon.id}`.includes(_search);
@@ -76,5 +91,6 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     setSearch,
     setType,
     populate: pokedex.populate,
+    setFavorites,
   };
 })

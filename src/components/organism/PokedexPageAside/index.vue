@@ -37,6 +37,10 @@ const setType = () => pokedex.setType(typesGroup.value);
     @apply px-4 py-1;
     @apply h-max;
 
+    .favorites {
+        @apply flex gap-2 items-center;
+    }
+
     .title {
         .el-collapse-item__header.is-active {
             @apply text-lg font-bold;

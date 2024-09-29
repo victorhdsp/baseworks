@@ -26,6 +26,13 @@ export const usePokedexStore = defineStore('pokedex', () => {
     size.value = (data.count / porPage) + 1;
   }
 
+  const toggleFavoriteById = (id: number) => {
+    if (pokemons.value[id]) {
+      pokemons.value[id].favorite = !pokemons.value[id].favorite;
+      localStorage.setItem('pokedex_loaded', JSON.stringify(pokemons.value));
+    }
+  }
+
   const addInDatabase = async (data: IPokemonPreview[]) => {
     loading.value = true;
     data.forEach((pokemon) => {
@@ -55,6 +62,7 @@ export const usePokedexStore = defineStore('pokedex', () => {
     size,
     count,
     populate,
-    addInDatabase
+    addInDatabase,
+    toggleFavoriteById
   };
 })
