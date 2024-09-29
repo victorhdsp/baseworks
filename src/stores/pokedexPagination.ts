@@ -72,6 +72,7 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
     perPage,
     total: filteredTotal,
     setSearch,
-    setType
+    setType,
+    populate: pokedex.populate,
   };
 })
