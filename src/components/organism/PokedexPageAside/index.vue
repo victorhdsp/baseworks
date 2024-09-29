@@ -1,53 +1,52 @@
 <template>
-    <div class="pokedex-page-aside">
-        <el-checkbox-group class="group" v-model="typesGroup" @change="setType">
-            <el-checkbox v-for="color, key in types" :key="key" :value="key">
-                <div class="item">
-                    <span :style="{ '--color': color }" class="icon">*</span>
-                    <p>{{ key }}</p>
-                </div>
-            </el-checkbox>
-        </el-checkbox-group>
-    </div>
+    <Card class="pokedex-page-aside">
+        <el-collapse v-model="activeGroup">
+            <el-collapse-item class="title" title="Filtros por tipo:" name="1">
+                <el-checkbox-group class="group" v-model="typesGroup" @change="setType">
+                    <el-checkbox v-for="_, type in types" :key="type" :value="type">
+                        <PokemonTag size="small" :name="type" />
+                    </el-checkbox>
+                </el-checkbox-group>
+            </el-collapse-item>
+        </el-collapse>
+    </Card>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import Card from '@/components/atom/Card/index.vue';
+import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
 import typeColors from '@/assets/data/typeColors';
 
 const pokedex = usePokedexPaginationStore();
-const typesGroup = ref<string[]>([]);
 const types = typeColors;
 
-const setType = () => {
-    console.log(typesGroup.value);
-    pokedex.setType(typesGroup.value);
-};
+const activeGroup = ref<string[]>(['1']);
+const typesGroup = ref<string[]>([]);
+const setType = () => pokedex.setType(typesGroup.value);
 
 </script>
 
 <style lang="scss" scoped>
 .pokedex-page-aside {
+    --el-border-color-lighter: transparent;
     @apply flex flex-col;
     @apply border border-blue-500 rounded-lg;
-    @apply px-6 py-4;
+    @apply px-4 py-1;
+    @apply h-max;
+
+    .title {
+        .el-collapse-item__header.is-active {
+            @apply text-lg font-bold;
+        }
+    }
 
     .group {
         @apply flex flex-col;
         @apply w-full;
-
-        .item {
-            @apply w-full;
-            @apply flex items-center gap-1;
-            @apply capitalize;
-
-            .icon {
-                @apply w-5 h-5;
-                @apply border border-gray-300 rounded-full;
-                background-color: var(--color);
-            }
-        }
     }
 }
+
+@media screen and (max-width: 768px) {}
 </style>

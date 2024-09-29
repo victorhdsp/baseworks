@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <PokedexPageHeader class="header" />
+    <PokedexPageSearch class="header" />
     <PokedexPageAside class="aside" />
     <main class="main">
       <PokemonList />
@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import PokedexPageHeader from '@/components/organism/PokedexPageHeader/index.vue';
+import PokedexPageSearch from '@/components/molecule/PokedexPageSearch/index.vue';
 import PokedexPageAside from '@/components/organism/PokedexPageAside/index.vue';
 import PokemonList from '@/components/organism/PokedexList/index.vue';
 import PokemonPagination from '@/components/organism/PokedexPagination/index.vue';
@@ -36,5 +36,12 @@ import PokemonPagination from '@/components/organism/PokedexPagination/index.vue
     grid-template-rows: 1fr auto;
     @apply h-full;
   }
+}
+
+@media screen and (max-width: 768px) {
+  .body {
+    @apply flex flex-col;
+  }
+
 }
 </style>

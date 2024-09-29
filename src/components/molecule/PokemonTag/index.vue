@@ -19,11 +19,12 @@ const size = props.size || 'default';
 
 <style lang="scss" scoped>
 .pokemon-tag {
-    @apply rounded-full text-white font-bold;
+    @apply rounded-full text-white capitalize;
     background-color: var(--color);
 
     &[data-size='small'] {
-        @apply p-2;
+        @apply px-2 py-1;
+        @apply text-sm;
     }
 
     &[data-size='default'] {

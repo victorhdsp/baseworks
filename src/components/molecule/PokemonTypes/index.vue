@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import type { IPokemon } from '@/lib/types/pokemon';
-import PokemonTag from '@/components/atom/PokemonTag/index.vue';
+import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
 
 const props = defineProps<{ types: IPokemon['types'] }>();
 </script>
