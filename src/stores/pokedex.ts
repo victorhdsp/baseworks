@@ -26,6 +26,13 @@ export const usePokedexStore = defineStore('pokedex', () => {
     size.value = (data.count / POKEDEX_FETCH_LIMIT) + 1;
   }
 
+  const addInDatabase = async (data: IPokemonPreview[]) => {
+    data.forEach((pokemon) => {
+      if (pokemon.id && !pokemons.value[pokemon.id])
+        pokemons.value[pokemon.id] = pokemon;
+    });
+  }
+
   const populate = async (end: number) => {
     while (loaded.value <= end) {
       byOffset(loaded.value);
@@ -43,5 +50,6 @@ export const usePokedexStore = defineStore('pokedex', () => {
     size,
     count,
     populate,
+    addInDatabase
   };
 })

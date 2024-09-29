@@ -18,9 +18,7 @@ const colors: Record<PokemonTypeNames, string> = {
     psychic: "#F85888",
     rock: "#B8A038",
     steel: "#B8B8D0",
-    water: "#6890F0",
-    unknown: "#68A090",
-    shadow: "#705898",
+    water: "#6890F0"
 }
 
 export default colors;

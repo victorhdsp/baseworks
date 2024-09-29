@@ -14,9 +14,8 @@ const pokedex = usePokedexPaginationStore();
 const search = ref('');
 
 const onSearch = () => {
-    pokedex.setSeach(search.value);
+    pokedex.setSearch(search.value);
 };
-
 </script>
 
 <style lang="scss" scoped>

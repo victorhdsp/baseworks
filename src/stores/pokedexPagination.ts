@@ -4,40 +4,62 @@ import type { IPokemonPreview } from '@/lib/types/pokemon';
 import router from '@/router';
 import { usePokedexStore } from './pokedex';
 import { POKEDEX_FETCH_LIMIT } from '@/lib/config';
+import api from '@/lib/api';
 
 export const usePokedexPaginationStore = defineStore('pokedex-pagination', () => {
   const pokedex = usePokedexStore();
   
   const perPage = ref<number>(POKEDEX_FETCH_LIMIT);
-  const total = ref<number>(pokedex.size);
+  const pokemons = ref<Record<string, IPokemonPreview>>(pokedex.pokemons);
+  const count = ref<number | null>(null);
+  const filteredTotal = ref<number>(0);
   const search = ref<string>('');
 
-  const setSeach = (value: string) => {
+  const setSearch = (value: string) => {
     search.value = value;
     pokedex.populate(pokedex.size);
   }
 
+  const setType = async (types: string[]) => {
+    if (types.length === 0) {
+      pokemons.value = pokedex.pokemons;
+      count.value = pokedex.count;
+      return;
+    }
+    pokemons.value = {};
+    count.value = 0;
+    types.forEach(async type => {
+      const data = await api.getByType(type)
+      pokedex.addInDatabase(data.results);
+      data.results.forEach((pokemon: IPokemonPreview) => {
+        pokemons.value[pokemon.id] = pokemon;
+      });
+      if (count.value) count.value += data.count;
+      else count.value = data.count;
+    });
+  }
+
   const filterBySearch = (pokemon: IPokemonPreview) => {
     const _search = search.value.toLowerCase();
-    return pokemon.name.includes(_search);
+    return pokemon.name.includes(_search) || `${pokemon.id}`.includes(_search);
   }
 
   const filterdPokemons = computed(() => {
-    let pokemons: Record<string, IPokemonPreview> = {};
+    let filteredPokemons: Record<string, IPokemonPreview> = {};
     if (search.value) {
-      for (const id in pokedex.pokemons)
-        if (filterBySearch(pokedex.pokemons[id]))
-          pokemons[id] = pokedex.pokemons[id];
-      total.value = Object.keys(pokemons).length;
+      for (const id in pokemons.value)
+        if (filterBySearch(pokemons.value[id]))
+          filteredPokemons[id] = pokemons.value[id];
+      filteredTotal.value = Object.keys(filteredPokemons).length;
     } else {
-      pokemons = pokedex.pokemons
-      total.value = pokedex.count;
+      filteredPokemons = pokemons.value;
+      filteredTotal.value = count.value || pokedex.count;
     }
 
     const page = Number(router.currentRoute.value.query.page) || 1;
     const start = (page - 1) * perPage.value;
     const end = start + perPage.value;
-    return Object.values(pokemons).slice(start, end);
+    return Object.values(filteredPokemons).slice(start, end);
   });
 
   watch(router.currentRoute, () => {
@@ -48,7 +70,8 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   return { 
     pokemons: filterdPokemons,
     perPage,
-    total,
-    setSeach
+    total: filteredTotal,
+    setSearch,
+    setType
   };
 })

@@ -1,4 +1,4 @@
-import type { Ability, Stat, Type } from "./pokeapi";
+import type { Ability, Type } from "./pokeapi";
 
 export interface IPokemonPreview {
     id: number;
@@ -14,7 +14,7 @@ export interface IPokemonStats {
     speed: number;
 }
 
-export type PokemonTypeNames = "normal" | "fighting" | "flying" | "poison" | "ground" | "rock" | "bug" | "ghost" | "steel" | "fire" | "water" | "grass" | "electric" | "psychic" | "ice" | "dragon" | "dark" | "fairy" | "unknown" | "shadow";
+export type PokemonTypeNames = "normal" | "fighting" | "flying" | "poison" | "ground" | "rock" | "bug" | "ghost" | "steel" | "fire" | "water" | "grass" | "electric" | "psychic" | "ice" | "dragon" | "dark" | "fairy";
 
 export interface IPokemon {
     id: number;

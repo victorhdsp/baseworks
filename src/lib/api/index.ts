@@ -35,9 +35,19 @@ async function getUnique(id: string): Promise<IPokemon> {
     };
 }
 
+async function getByType(id: string): Promise<NamedAPIResource> {
+    const data = await routes.fetchPokemonType(id);
+    const pokemons = data.pokemon.map((item: any) => item.pokemon);
+    const results = controller.parseResults(pokemons);
+
+    return { results, count: data.pokemon.length };
+    
+}
+
 const api = {
     getAll,
-    getUnique
+    getUnique,
+    getByType
 };
 
 export default api;
