@@ -13,12 +13,13 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   const perPage = ref<number>(isMobile ? POKEDEX_FETCH_LIMIT_MOBILE : POKEDEX_FETCH_LIMIT_DESKTOP);
   const pokemons = ref<Record<string, IPokemonPreview>>(pokedex.pokemons);
   const count = ref<number | null>(null);
+
   const filteredTotal = ref<number>(0);
   const search = ref<string>('');
 
-  const setSearch = (value: string) => {
+  const setSearch = async (value: string) => {
     search.value = value;
-    pokedex.populate(pokedex.size);
+    await pokedex.populate(pokedex.size);
   }
 
   const setType = async (types: string[]) => {

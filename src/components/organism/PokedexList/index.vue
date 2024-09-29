@@ -1,8 +1,8 @@
 <template>
     <section id="pokedex-list">
-        <Loading v-if="!pokedex.pokemons" />
+        <Loading v-if="pokedex.loading" />
         <ul class="list" v-else>
-            <Card is="li" v-for="pokemon in pokedex.pokemons" :key="pokemon.id">
+            <Card is="li" v-for="pokemon in pokedexPag.pokemons" :key="pokemon.id">
                 <PokemonCard :pokemon="pokemon" />
             </Card>
         </ul>
@@ -14,7 +14,9 @@ import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 import Card from '@/components/atom/Card/index.vue';
 import PokemonCard from '@/components/molecule/PokemonCard/index.vue';
 import Loading from '@/components/molecule/Loading/index.vue';
-const pokedex = usePokedexPaginationStore();
+import { usePokedexStore } from '@/stores/pokedex';
+const pokedexPag = usePokedexPaginationStore();
+const pokedex = usePokedexStore();
 </script>
 
 <style lang="scss" scoped>

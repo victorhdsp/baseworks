@@ -1,6 +1,6 @@
 # Tarefas
 
-[ ] - Loading ao carregar os pokemons;
+[x] - Loading ao carregar os pokemons;
 [ ] - Persistência dos pokemons já baixados;
 [ ] - Criar testes para todos os componentes;
 [ ] - Adicionar um sistema de favoritos;
