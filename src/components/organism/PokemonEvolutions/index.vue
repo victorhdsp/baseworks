@@ -1,13 +1,9 @@
 <template>
     <div class="pokemon-evolutions">
-        <h3>Evolutions:</h3>
+        <h2>Evolutions:</h2>
         <ul class="list">
-            <li v-for="pokemon in props.evolutions" :key="pokemon.id">
-                <RouterLink :to="`/pokemon/${pokemon.id}`">
-                    <h2>{{ pokemon.name }}</h2>
-                    <p>{{ pokemon.id }}</p>
-                    <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
-                </RouterLink>
+            <li class="item" v-for="pokemon in props.evolutions" :key="pokemon.id">
+                <PokemonCard :pokemon="pokemon" />
             </li>
         </ul>
     </div>
@@ -15,17 +11,29 @@
 
 <script setup lang="ts">
 import type { IPokemon } from '@/lib/types/pokemon';
-import PokemonImage from '@/components/atom/PokemonImage/index.vue';
+import PokemonCard from '@/components/molecule/PokemonCard/index.vue';
 
 const props = defineProps<{ evolutions: IPokemon['evolution'] }>();
 </script>
 
 <style lang="scss" scoped>
 .pokemon-evolutions {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-4;
+    @apply h-full;
 
     .list {
-        @apply flex flex-col gap-2;
+        @apply grid gap-16 grid-cols-3;
+        @apply h-full;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pokemon-evolutions {
+        @apply text-center;
+
+        .list {
+            @apply flex flex-col items-center gap-8;
+        }
     }
 }
 </style>

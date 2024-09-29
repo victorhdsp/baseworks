@@ -21,6 +21,7 @@ export interface IPokemon {
     name: string;
     height: number;
     weight: number;
+    description: string[];
     abilities: Ability[];
     stats: IPokemonStats;
     types: PokemonTypeNames[];
