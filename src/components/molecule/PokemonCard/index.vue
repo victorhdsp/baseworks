@@ -29,7 +29,8 @@ defineProps<{ pokemon: IPokemonPreview }>();
         @apply h-full;
 
         .title {
-            @apply text-lg;
+            @apply text-lg whitespace-nowrap text-ellipsis;
+            @apply overflow-hidden;
         }
 
         .number {
