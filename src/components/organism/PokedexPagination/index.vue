@@ -9,14 +9,17 @@
 import { ElPagination } from 'element-plus';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 import router from '@/router';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 const pokedex = usePokedexPaginationStore();
 const currentPage = ref(Number(router.currentRoute.value.query.page) || 1);
 
 const onPageChange = (page: number) => {
     router.push({ query: { page } });
-    currentPage.value = page;
 };
+watch(router.currentRoute, () => {
+    const page = Number(router.currentRoute.value.query.page) || 1;
+    currentPage.value = page;
+});
 </script>
 
 <style lang="scss" scoped>

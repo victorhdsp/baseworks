@@ -1,11 +1,13 @@
-import { POKEDEX_FETCH_LIMIT } from '@/lib/config';
+import { POKEDEX_FETCH_LIMIT_DESKTOP, POKEDEX_FETCH_LIMIT_MOBILE } from '@/lib/config';
 import { ref, onMounted } from 'vue';
 import { defineStore } from 'pinia';
 import type { IPokemonPreview } from '@/lib/types/pokemon';
 import api, { type IGetAllOptions } from '@/lib/api';
 import router from '@/router';
+import { isMobile } from '@basitcodeenv/vue3-device-detect';
 
 export const usePokedexStore = defineStore('pokedex', () => {
+  const porPage = isMobile ? POKEDEX_FETCH_LIMIT_MOBILE : POKEDEX_FETCH_LIMIT_DESKTOP;
   const pokemons = ref<Record<string, IPokemonPreview>>({});
   const loaded = ref<number>(0);
   const count = ref<number>(1);
@@ -13,8 +15,8 @@ export const usePokedexStore = defineStore('pokedex', () => {
   
   const byOffset = async (value = 0) => {
     if (Object.keys(pokemons.value).length >= count.value) return;
-    const offset = value * POKEDEX_FETCH_LIMIT;
-    const options: IGetAllOptions = { limit: POKEDEX_FETCH_LIMIT, offset };
+    const offset = value * porPage;
+    const options: IGetAllOptions = { limit: porPage, offset };
     const data = await api.getAll(options);
     
     data.results.forEach((pokemon) => {
@@ -23,7 +25,7 @@ export const usePokedexStore = defineStore('pokedex', () => {
     });
     
     count.value = data.count;
-    size.value = (data.count / POKEDEX_FETCH_LIMIT) + 1;
+    size.value = (data.count / porPage) + 1;
   }
 
   const addInDatabase = async (data: IPokemonPreview[]) => {
