@@ -1,7 +1,7 @@
 <template>
     <section id="pokedex-pagination">
         <el-pagination :total="pokedex.total" :page-size="pokedex.perPage" :current-page="currentPage"
-            @current-change="onPageChange" background layout="prev, pager, next" />
+            @current-change="onPageChange" background layout="prev, pager, next" small />
     </section>
 </template>
 
@@ -22,5 +22,11 @@ const onPageChange = (page: number) => {
 <style lang="scss" scoped>
 #pokedex-pagination {
     @apply w-full h-full flex flex-col;
+}
+
+@media screen and (max-width: 768px) {
+    #pokedex-pagination {
+        @apply items-center;
+    }
 }
 </style>

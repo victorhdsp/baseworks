@@ -17,4 +17,10 @@ const props = defineProps<{ types: IPokemon['types'] }>();
     @apply flex flex-wrap items-center gap-2;
     @apply h-max;
 }
+
+@media screen and (max-width: 768px) {
+    .pokemon-types {
+        @apply flex-col;
+    }
+}
 </style>

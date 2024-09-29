@@ -41,4 +41,23 @@ const description = props.pokemon.description.map((text: string) =>
         @apply flex flex-col gap-2;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .pokemon-description {
+        @apply flex flex-col;
+
+        .image {
+            @apply mx-auto;
+        }
+
+        .data {
+            @apply flex-row gap-8 justify-center;
+        }
+
+        .description {
+            @apply text-center;
+        }
+    }
+
+}
 </style>

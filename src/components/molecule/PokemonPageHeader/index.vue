@@ -26,4 +26,10 @@ const props = defineProps<{
     @apply flex items-center justify-between gap-16;
     @apply pb-8;
 }
+
+@media screen and (max-width: 768px) {
+    #pokemon-page-header {
+        @apply justify-between gap-4;
+    }
+}
 </style>

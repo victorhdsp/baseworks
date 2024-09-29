@@ -2,7 +2,7 @@
     <div class="pokemon-evolutions">
         <h2>Evolutions:</h2>
         <ul class="list">
-            <li v-for="pokemon in props.evolutions" :key="pokemon.id">
+            <li class="item" v-for="pokemon in props.evolutions" :key="pokemon.id">
                 <PokemonCard :pokemon="pokemon" />
             </li>
         </ul>
@@ -18,12 +18,22 @@ const props = defineProps<{ evolutions: IPokemon['evolution'] }>();
 
 <style lang="scss" scoped>
 .pokemon-evolutions {
-    @apply flex flex-col gap-8;
+    @apply flex flex-col gap-4;
     @apply h-full;
 
     .list {
         @apply grid gap-16 grid-cols-3;
         @apply h-full;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pokemon-evolutions {
+        @apply text-center;
+
+        .list {
+            @apply flex flex-col items-center gap-8;
+        }
     }
 }
 </style>

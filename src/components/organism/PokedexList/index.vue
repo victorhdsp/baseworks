@@ -29,7 +29,7 @@ const pokedex = usePokedexPaginationStore();
 
 @media screen and (max-width: 768px) {
     #pokedex-list .list {
-        @apply grid-cols-1;
+        @apply flex flex-col;
     }
 }
 </style>

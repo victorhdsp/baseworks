@@ -41,7 +41,10 @@ import PokemonPagination from '@/components/organism/PokedexPagination/index.vue
 @media screen and (max-width: 768px) {
   .body {
     @apply flex flex-col;
-  }
 
+    .main {
+      @apply flex flex-col;
+    }
+  }
 }
 </style>
