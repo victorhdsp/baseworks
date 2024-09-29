@@ -14,7 +14,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@basitcodeenv/vue3-device-detect": "^1.0.3",
     "element-plus": "^2.8.4",
     "lucide-vue-next": "^0.446.0",
     "pinia": "^2.1.7",

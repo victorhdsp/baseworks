@@ -18,12 +18,11 @@ import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 import Card from '@/components/atom/Card/index.vue';
 import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
 import typeColors from '@/assets/data/typeColors';
-import { isMobile } from '@basitcodeenv/vue3-device-detect';
 
 const pokedex = usePokedexPaginationStore();
 const types = typeColors;
 
-const activeGroup = ref<string[]>(isMobile ? [] : ['1']);
+const activeGroup = ref<string[]>(['1']);
 const typesGroup = ref<string[]>([]);
 const setType = () => pokedex.setType(typesGroup.value);
 
