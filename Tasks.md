@@ -6,4 +6,4 @@
 [ ] - Adicionar um sistema de favoritos;
 [ ] - Adicionar temas claro e escuro; ?
 [ ] - Adicionar animações e transições;
-[ ] - Placeholder para pokemons sem foto.
+[x] - Placeholder para pokemons sem foto.
