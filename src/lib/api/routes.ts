@@ -34,11 +34,19 @@ async function fetchPokemonSpecies(id: string): Promise<any> {
     return data;
 }
 
+async function fetchPokemonType(id: string): Promise<any> {
+    const url = `${config.POKEMON_API_URL}/type/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+}
+
 const routes = {
     fetchNamedAPIResourcePokemon,
     fetchPokemonId,
     fetchPokemonEvolutionChain,
-    fetchPokemonSpecies
+    fetchPokemonSpecies,
+    fetchPokemonType
 };
 
 export default routes;
