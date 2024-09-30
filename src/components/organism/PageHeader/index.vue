@@ -9,17 +9,29 @@
                 <RouterLink to="/">Pokedex</RouterLink>
                 <RouterLink to="/sobre">Sobre</RouterLink>
             </menu>
+            <el-switch v-model="theme" inline-prompt
+                style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949" active-text="Light"
+                inactive-text="Dark" @change="toggleTheme" />
         </div>
     </header>
 </template>
 
 <script setup lang="ts">
 import PokemonLogo from '@/components/atom/PokemonLogo/index.vue';
+import { ref } from 'vue';
+
+const theme = ref(localStorage.getItem('theme') === 'light');
+
+const toggleTheme = (isLight: boolean) => {
+    const theme = isLight ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+};
 </script>
 
 <style lang="scss" scoped>
 .page-header {
-    @apply bg-white;
+    @apply bg-[--bg-color];
     @apply mb-8;
 
     .content {
@@ -35,9 +47,25 @@ import PokemonLogo from '@/components/atom/PokemonLogo/index.vue';
         .menu {
             @apply flex gap-4;
 
-            .router-link-active {
-                @apply font-bold;
+            a {
+                @apply text-[--text-dk-color];
+                @apply relative;
+
+                &::after {
+                    content: '';
+                    @apply absolute bottom-0 left-0;
+                    @apply w-[0px] h-[1px];
+                    @apply bg-blue-500;
+                    @apply transition-all duration-300;
+                }
+
+                &.router-link-active {
+                    &::after {
+                        @apply w-full;
+                    }
+                }
             }
+
         }
 
     }

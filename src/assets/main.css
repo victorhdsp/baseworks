@@ -1,9 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import './base.css';
 
+:root {
+  --bg-color: #f7fafc;
+  --text-dk-color: #2d3748;
+  --text-color: #4a5568;
+  --primary-color: #4299e1;
+
+  --el-border-color-lighter: #e2e8f0;
+  --el-fill-color-blank: #f7fafc;
+  --el-border-color: #4299e1;
+  --el-border-color-hover: #4a5568;
+  --el-color-primary: #4299e1;
+  --el-text-color-primary: #2d3748;
+  --el-text-color-regular: #2d3748;
+  --el-text-color-placeholder: #4a5568;
+  --el-text-color-secondary: #4a5568;
+
+  --el-fill-color: #f7fafc;
+  --el-fill-color-light: #f7fafc;
+}
+
 body {
   font-family: 'Encode Sans Condensed', sans-serif;
   font-weight: 400;
   font-style: normal;
   @apply pb-8;
+  @apply text-[--text-color];
+  @apply bg-[--bg-color];
+}
+
+h1,
+h2,
+h3,
+b {
+  @apply text-[--text-dk-color];
+}
+
+[data-theme='dark']:root {
+  --bg-color: #1a202c;
+  --text-dk-color: #e2e8f0;
+  --text-color: #a0aec0;
+  --primary-color: #2b6cb0;
+
+  --el-border-color-lighter: #2d3748;
+  --el-fill-color-blank: #2d3748;
+  --el-border-color: #4299e1;
+  --el-border-color-hover: #4a5568;
+  --el-color-primary: #2b6cb0;
+  --el-text-color-primary: #e2e8f0;
+  --el-text-color-regular: #e2e8f0;
+  --el-text-color-placeholder: #a0aec0;
+  --el-text-color-secondary: #a0aec0;
+
+  --el-fill-color: #2d3748;
+  --el-fill-color-light: #2d3748;
+}
+@media (prefers-color-scheme: dark) {
 }
