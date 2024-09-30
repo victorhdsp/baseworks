@@ -7,7 +7,8 @@
 [ ] - Adicionar temas claro e escuro; ?
 [ ] - Adicionar animações e transições;
 [x] - Placeholder para pokemons sem foto;
-[ ] - Adicionar linguagens.
+[ ] - Adicionar linguagens;
+[ ] - Adicionar Quiz Pokemon.
 
 ## Bugfix
 
