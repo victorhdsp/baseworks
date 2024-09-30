@@ -1,10 +1,11 @@
 # Tarefas
 
 [x] - Loading ao carregar os pokemons;
-[ ] - Persistência dos pokemons já baixados;
+[x] - Persistência dos pokemons já baixados;
+[x] - Adicionar um sistema de favoritos;
+[x] - Placeholder para pokemons sem foto;
 [ ] - Criar testes para todos os componentes;
-[ ] - Adicionar um sistema de favoritos;
 [ ] - Adicionar temas claro e escuro; ?
 [ ] - Adicionar animações e transições;
-[x] - Placeholder para pokemons sem foto;
-[ ] - Adicionar linguagens.
+[ ] - Adicionar linguagens;
+[ ] - Adicionar Quiz Pokemon.

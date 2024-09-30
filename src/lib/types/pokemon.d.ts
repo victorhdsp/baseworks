@@ -3,6 +3,7 @@ import type { Ability, Type } from "./pokeapi";
 export interface IPokemonPreview {
     id: number;
     name: string;
+    favorite?: boolean;
 }
 
 export interface IPokemonStats {
