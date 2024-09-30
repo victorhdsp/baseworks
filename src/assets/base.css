@@ -9,11 +9,6 @@ h4,
 h5,
 h6 {
   @apply font-bold;
-  @apply text-zinc-700;
-}
-
-body {
-  @apply text-zinc-600;
 }
 
 h1 {

@@ -10,6 +10,19 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import Header from '@/components/organism/PageHeader/index.vue'
+import { ref } from 'vue';
+
+const localTheme = ref(localStorage.getItem('theme'));
+if (!localTheme.value) {
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    localTheme.value = 'dark';
+  } else {
+    localTheme.value = 'light';
+  }
+}
+localStorage.setItem('theme', localTheme.value);
+document.documentElement.setAttribute('data-theme', localTheme.value);
+
 </script>
 
 <style lang="scss">
