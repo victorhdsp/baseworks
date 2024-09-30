@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import Card from '@/components/atom/Card/index.vue';
 import { Search } from 'lucide-vue-next';
-import { ElInput } from 'element-plus';
+import { ElInput, ElButton, ElSwitch } from 'element-plus';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
 import { ref } from 'vue';
 

@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ElPagination } from 'element-plus';
-import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import { usePokedexPaginationStore } from '@/stores/pokedexPagination/index';
 import router from '@/router';
 import { ref, watch } from 'vue';
 const pokedex = usePokedexPaginationStore();

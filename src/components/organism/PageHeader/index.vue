@@ -18,11 +18,13 @@
 
 <script setup lang="ts">
 import PokemonLogo from '@/components/atom/PokemonLogo/index.vue';
+import { RouterLink } from 'vue-router';
+import { ElSwitch } from 'element-plus';
 import { ref } from 'vue';
 
 const theme = ref(localStorage.getItem('theme') === 'light');
 
-const toggleTheme = (isLight: boolean) => {
+const toggleTheme = (isLight: boolean | string | number) => {
     const theme = isLight ? 'light' : 'dark';
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);

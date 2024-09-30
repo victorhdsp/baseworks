@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import { ElCollapse, ElCollapseItem, ElCheckbox, ElCheckboxGroup } from 'element-plus';
 import Card from '@/components/atom/Card/index.vue';
 import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
 import typeColors from '@/assets/data/typeColors';
@@ -25,7 +26,9 @@ const types = typeColors;
 
 const activeGroup = ref<string[]>(isMobile ? [] : ['1']);
 const typesGroup = ref<string[]>([]);
-const setType = () => pokedex.setType(typesGroup.value);
+function setType() {
+    pokedex.setType(typesGroup.value);
+}
 
 </script>
 
@@ -57,6 +60,4 @@ const setType = () => pokedex.setType(typesGroup.value);
         @apply w-full;
     }
 }
-
-@media screen and (max-width: 768px) {}
 </style>

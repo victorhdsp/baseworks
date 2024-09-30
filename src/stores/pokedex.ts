@@ -45,7 +45,7 @@ export const usePokedexStore = defineStore('pokedex', () => {
 
   const populate = async (end: number) => {
     while (loaded.value <= end) {
-      byOffset(loaded.value);
+      await byOffset(loaded.value);
       loaded.value++;
     }
   }

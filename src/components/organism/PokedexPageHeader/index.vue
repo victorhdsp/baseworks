@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ElInput } from 'element-plus';
 import { ref } from 'vue';
-import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import { usePokedexPaginationStore } from '@/stores/pokedexPagination/index';
 
 const pokedex = usePokedexPaginationStore();
 const search = ref('');
