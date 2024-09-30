@@ -35,9 +35,24 @@ import PokemonLogo from '@/components/atom/PokemonLogo/index.vue';
         .menu {
             @apply flex gap-4;
 
-            .router-link-active {
-                @apply font-bold;
+            a {
+                @apply relative;
+
+                &::after {
+                    content: '';
+                    @apply absolute bottom-0 left-0;
+                    @apply w-[0px] h-[1px];
+                    @apply bg-blue-500;
+                    @apply transition-all duration-300;
+                }
+
+                &.router-link-active {
+                    &::after {
+                        @apply w-full;
+                    }
+                }
             }
+
         }
 
     }
