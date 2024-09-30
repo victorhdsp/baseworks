@@ -6,6 +6,6 @@
 [x] - Placeholder para pokemons sem foto;
 [ ] - Criar testes para todos os componentes;
 [ ] - Adicionar temas claro e escuro; ?
-[ ] - Adicionar animações e transições;
+[x] - Adicionar animações e transições;
 [ ] - Adicionar linguagens;
 [ ] - Adicionar Quiz Pokemon.
