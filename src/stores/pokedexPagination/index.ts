@@ -13,7 +13,7 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
   
   const perPage = ref<number>(isMobile ? POKEDEX_FETCH_LIMIT_MOBILE : POKEDEX_FETCH_LIMIT_DESKTOP);
 
-  const count = ref<number | null>(null);
+  const count = ref<number>(0);
   const filterType = ref<number[]>([]);
   const filterSearch = ref<string>('');
   const filterFavorite = ref<boolean>(false);
