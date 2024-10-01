@@ -37,7 +37,7 @@ const toggleTheme = (isLight: boolean | string | number) => {
     @apply mb-8;
 
     .content {
-        @apply flex items-center justify-between;
+        @apply flex items-center justify-between gap-8;
         @apply container;
         @apply py-4;
         @apply border-b border-gray-200;
