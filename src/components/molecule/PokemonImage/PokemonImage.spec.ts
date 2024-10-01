@@ -8,7 +8,9 @@ describe('PokemonImage', () => {
     const wrapper = mount(PokemonImage, {
       props: {
         alt: 'Imagem do Pokemon',
-        index: 1
+        index: 1,
+        width: "136",
+        height: "136"
       }
     });
     const source = wrapper.find('source');
@@ -21,7 +23,9 @@ describe('PokemonImage', () => {
     const wrapper = mount(PokemonImage, {
       props: {
         alt: 'Imagem do Pokemon',
-        index: 1
+        index: 1,
+        width: "136",
+        height: "136"
       }
     });
     const img = wrapper.find('img');
@@ -34,7 +38,9 @@ describe('PokemonImage', () => {
     const wrapper = mount(PokemonImage, {
       props: {
         alt: 'Imagem do Pokemon',
-        index: 1
+        index: 1,
+        width: "136",
+        height: "136"
       }
     });
     const img = wrapper.find('img');
