@@ -1,6 +1,6 @@
 <template>
     <div class="pokemon-description">
-        <PokemonImage class="image" :index="pokemon.id" :alt="pokemon.name" />
+        <PokemonImage width="192" height="192" class="image" :index="pokemon.id" :alt="pokemon.name" />
         <div class="data">
             <PokemonTypes :types="pokemon.types" />
             <PokemonStats :stats="pokemon.stats" />
