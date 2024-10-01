@@ -1,5 +1,5 @@
 <template>
-    <Card class="pokedex-page-aside">
+    <Card is="aside" id="pokedex-page-aside">
         <el-collapse v-model="activeGroup">
             <el-collapse-item class="title" title="Filtros por tipo:" name="1">
                 <el-checkbox-group class="group" v-model="typesGroup" @change="setType">
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { usePokedexPaginationStore } from '@/stores/pokedexPagination';
+import { ElCollapse, ElCollapseItem, ElCheckbox, ElCheckboxGroup } from 'element-plus';
 import Card from '@/components/atom/Card/index.vue';
 import PokemonTag from '@/components/molecule/PokemonTag/index.vue';
 import typeColors from '@/assets/data/typeColors';
@@ -25,20 +26,31 @@ const types = typeColors;
 
 const activeGroup = ref<string[]>(isMobile ? [] : ['1']);
 const typesGroup = ref<string[]>([]);
-const setType = () => pokedex.setType(typesGroup.value);
+function setType() {
+    pokedex.setType(typesGroup.value);
+}
 
 </script>
 
-<style lang="scss" scoped>
-.pokedex-page-aside {
+<style lang="scss">
+#pokedex-page-aside {
     --el-border-color-lighter: transparent;
     @apply flex flex-col;
     @apply border border-blue-500 rounded-lg;
-    @apply px-4 py-1;
+    @apply p-0;
     @apply h-max;
+    @apply overflow-hidden;
+
+    .favorites {
+        @apply flex gap-2 items-center;
+    }
 
     .title {
-        .el-collapse-item__header.is-active {
+        >* {
+            @apply px-4;
+        }
+
+        .el-collapse-item__header {
             @apply text-lg font-bold;
         }
     }
@@ -48,6 +60,4 @@ const setType = () => pokedex.setType(typesGroup.value);
         @apply w-full;
     }
 }
-
-@media screen and (max-width: 768px) {}
 </style>

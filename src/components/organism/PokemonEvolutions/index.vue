@@ -2,7 +2,7 @@
     <div class="pokemon-evolutions">
         <h2>Evolutions:</h2>
         <ul class="list">
-            <li class="item" v-for="pokemon in props.evolutions" :key="pokemon.id">
+            <li class="item" v-for="pokemon in newData" :key="pokemon.id">
                 <PokemonCard :pokemon="pokemon" />
             </li>
         </ul>
@@ -12,8 +12,19 @@
 <script setup lang="ts">
 import type { IPokemon } from '@/lib/types/pokemon';
 import PokemonCard from '@/components/molecule/PokemonCard/index.vue';
+import { usePokedexStore } from '@/stores/pokedex';
 
 const props = defineProps<{ evolutions: IPokemon['evolution'] }>();
+const pokedex = usePokedexStore();
+const newData: IPokemon["evolution"] = [];
+
+pokedex.addInDatabase(props.evolutions);
+for (const evolution of props.evolutions) {
+    const pokemon = pokedex.pokemons[evolution.id];
+    if (pokemon) {
+        newData.push(pokemon);
+    }
+}
 </script>
 
 <style lang="scss" scoped>

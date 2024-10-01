@@ -1,7 +1,7 @@
 <template>
     <picture class="pokemon-image">
         <source ref="source" :srcset="png" type="image/png" />
-        <img @error="handleError" :src="commom" :alt="props.alt" />
+        <img @error="handleError" :src="placeholder" :alt="props.alt" />
     </picture>
 </template>
 
@@ -15,11 +15,11 @@ const props = defineProps<{
 
 const source = ref<VNodeRef | undefined>();
 const png = computed(() => `${config.POKEMON_IMAGE_PNG_URL}${props.index}.png`);
-const commom = computed(() => `${config.POKEMON_IMAGE_COMMON_URL}${props.index}.png`);
+const placeholder = computed(() => `/img/placeholder-pokemon.webp`);
 
 const handleError = (event: Event) => {
     if (source.value) {
-        (source.value as unknown as HTMLSourceElement).srcset = '';
+        (source.value as unknown as HTMLSourceElement).remove();
     }
 };
 </script>

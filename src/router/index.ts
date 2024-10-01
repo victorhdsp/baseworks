@@ -7,17 +7,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'Pokedex',
-      component: HomeView
+      component: HomeView,
+      meta: { transition: 'slide-right' }
     },
     {
       path: '/sobre',
       name: 'Sobre',
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/AboutView.vue'),
+      meta: { transition: 'slide-left' }
     },
     {
       path: '/pokemon/:id',
       name: 'Pokemon',
-      component: () => import('../views/PokemonView.vue')
+      component: () => import('../views/PokemonView.vue'),
+      meta: { transition: 'slide-right' }
     }
   ]
 })

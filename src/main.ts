@@ -1,5 +1,5 @@
-import './assets/main.css'
 import 'element-plus/dist/index.css'
+import './assets/main.css'
 import VueDeviceDetect from '@basitcodeenv/vue3-device-detect'
 
 import { createApp } from 'vue'
