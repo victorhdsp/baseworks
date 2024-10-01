@@ -1,7 +1,7 @@
 <template>
     <picture class="pokemon-image">
         <source ref="source" :srcset="png" type="image/png" />
-        <img @error="handleError" :src="placeholder" :alt="props.alt" />
+        <img @error="handleError" :width="props.width" :height="props.height" :src="placeholder" :alt="props.alt" />
     </picture>
 </template>
 
@@ -11,6 +11,8 @@ import { computed, ref, type VNodeRef } from 'vue';
 const props = defineProps<{
     alt: string;
     index: string | number;
+    width: string,
+    height: string
 }>();
 
 const source = ref<VNodeRef | undefined>();

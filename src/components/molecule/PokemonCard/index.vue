@@ -2,7 +2,7 @@
     <div class="pokemon-card">
         <div class="content">
             <RouterLink class="img" :to="`/pokemon/${pokemon.id}`">
-                <PokemonImage :index="pokemon.id" :alt="pokemon.name" />
+                <PokemonImage width="136" height="136" :index="pokemon.id" :alt="pokemon.name" />
             </RouterLink>
             <div class="header">
                 <RouterLink :to="`/pokemon/${pokemon.id}`">
