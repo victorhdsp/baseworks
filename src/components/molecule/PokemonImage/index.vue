@@ -1,7 +1,7 @@
 <template>
     <picture class="pokemon-image">
-        <source ref="source" :srcset="image.webp" type="image/webp" />
-        <source ref="source" :srcset="image.png" type="image/png" />
+        <source ref="sourceWeb" :srcset="image.webp" type="image/webp" />
+        <source ref="sourcePng" :srcset="image.png" type="image/png" />
         <img @error="handleError" :width="props.width" :height="props.height" :src="placeholder" :alt="props.alt" />
     </picture>
 </template>
@@ -16,7 +16,8 @@ const props = defineProps<{
     height: string
 }>();
 
-const source = ref<VNodeRef | undefined>();
+const sourceWeb = ref<VNodeRef | undefined>();
+const sourcePng = ref<VNodeRef | undefined>();
 const image = computed(() => ({
     webp: `/img/pokemons/webp/${props.index}.webp`,
     png: `/img/pokemons/png/${props.index}.png`
@@ -24,8 +25,11 @@ const image = computed(() => ({
 const placeholder = computed(() => `/img/placeholder-pokemon.webp`);
 
 const handleError = (event: Event) => {
-    if (source.value) {
-        (source.value as unknown as HTMLSourceElement).remove();
+    if (sourcePng.value) {
+        (sourcePng.value as unknown as HTMLSourceElement).remove();
+    }
+    if (sourceWeb.value) {
+        (sourceWeb.value as unknown as HTMLSourceElement).remove();
     }
 };
 </script>

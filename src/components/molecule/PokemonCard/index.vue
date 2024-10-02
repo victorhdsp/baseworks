@@ -5,8 +5,8 @@
                 <PokemonImage width="136" height="136" :index="pokemon.id" :alt="pokemon.name" />
             </RouterLink>
             <div class="header">
-                <RouterLink :to="`/pokemon/${pokemon.id}`">
-                    <h2 class="title">{{ pokemon.name }}</h2>
+                <RouterLink class="title" :to="`/pokemon/${pokemon.id}`">
+                    <h2>{{ pokemon.name }}</h2>
                 </RouterLink>
                 <button class="favorite" @click="toggleFavorite">
                     {{ pokemon.favorite ? '❤️' : '🤍' }}
@@ -53,8 +53,14 @@ const toggleFavorite = () => {
             @apply flex justify-between items-center;
 
             .title {
-                @apply text-lg whitespace-nowrap text-ellipsis;
                 @apply overflow-hidden;
+                @apply w-full;
+
+                h2 {
+                    @apply text-lg whitespace-nowrap text-ellipsis text-[var(--text-dk-color)];
+                    @apply overflow-hidden;
+                    @apply w-full;
+                }
             }
         }
 
