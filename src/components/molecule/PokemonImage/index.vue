@@ -1,6 +1,7 @@
 <template>
     <picture class="pokemon-image">
-        <source ref="source" :srcset="png" type="image/png" />
+        <source ref="source" :srcset="image.webp" type="image/webp" />
+        <source ref="source" :srcset="image.png" type="image/png" />
         <img @error="handleError" :width="props.width" :height="props.height" :src="placeholder" :alt="props.alt" />
     </picture>
 </template>
@@ -16,7 +17,10 @@ const props = defineProps<{
 }>();
 
 const source = ref<VNodeRef | undefined>();
-const png = computed(() => `${config.POKEMON_IMAGE_PNG_URL}${props.index}.png`);
+const image = computed(() => ({
+    webp: `/img/pokemons/webp/${props.index}.webp`,
+    png: `/img/pokemons/png/${props.index}.png`
+}));
 const placeholder = computed(() => `/img/placeholder-pokemon.webp`);
 
 const handleError = (event: Event) => {
