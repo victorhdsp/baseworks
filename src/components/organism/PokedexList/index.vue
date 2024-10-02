@@ -1,11 +1,14 @@
 <template>
     <section id="pokedex-list">
         <Loading v-if="pokedex.loading" />
-        <ul class="list" v-else>
+        <ul class="list" v-else-if="pokedexPag.pokemons.length > 0">
             <Card is="li" v-for="pokemon in pokedexPag.pokemons" :key="pokemon.id">
                 <PokemonCard :pokemon="pokemon" />
             </Card>
         </ul>
+        <div class="not-found" v-else-if="pokedexPag.pokemons.length == 0">
+            <h2>Pokemon não encontrado</h2>
+        </div>
     </section>
 </template>
 
@@ -26,6 +29,11 @@ const pokedex = usePokedexStore();
     .list {
         @apply grid gap-4 grid-cols-3 grid-rows-3;
         @apply h-full;
+    }
+
+    .not-found {
+        @apply flex items-center justify-center;
+        @apply w-full h-full;
     }
 }
 
