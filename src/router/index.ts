@@ -17,7 +17,7 @@ const router = createRouter({
       meta: { transition: 'slide-left' }
     },
     {
-      path: '/pokemon/:id',
+      path: '/pokemon/:id?',
       name: 'Pokemon',
       component: () => import('../views/PokemonView.vue'),
       meta: { transition: 'slide-right' }
