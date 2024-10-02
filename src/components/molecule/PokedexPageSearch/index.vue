@@ -4,7 +4,7 @@
             <Search />
             <el-input v-model="search" @input="onSearch" placeholder="Digite um texto para pesquisar"
                 :input-style="{ border: 'none' }" />
-            <el-button type="primary" @click="onSearch">
+            <el-button class="button" type="primary" @click="onSearch">
                 Pesquisar
             </el-button>
         </div>
@@ -44,6 +44,12 @@ const onFavorite = () => pokedex.setFavorites(favorite.value);
 
     .favorites {
         @apply flex gap-2 items-center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .pokedex-page-search .search .button {
+        @apply hidden;
     }
 }
 </style>
