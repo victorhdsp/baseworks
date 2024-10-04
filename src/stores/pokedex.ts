@@ -34,26 +34,25 @@ export const usePokedexStore = defineStore('pokedex', () => {
   }
 
   const addInDatabase = async (data: IPokemonPreview[]) => {
-    loading.value = true;
     data.forEach((pokemon) => {
       if (pokemon.id && !pokemons.value[pokemon.id])
         pokemons.value[pokemon.id] = pokemon;
     });
     localStorage.setItem('pokedex_loaded', JSON.stringify(pokemons.value));
-    loading.value = false;
   }
 
   const populate = async (end: number) => {
+    loading.value = true;
     while (loaded.value <= end) {
       await byOffset(loaded.value);
       loaded.value++;
     }
+    loading.value = false;
   }
 
   onMounted(async () => { 
     const page = Number(router.currentRoute.value.query.page) || 1;
     await populate((page - 1));
-    loading.value = false;
   });
 
   return { 
