@@ -25,14 +25,16 @@ export const usePokedexPaginationStore = defineStore('pokedex-pagination', () =>
 
   const setType = async (types: string[]) => {
     filterType.value = [];
+    pokedex.loading = true;
     for (const type of types) {
       const data = await api.getByType(type);
-      pokedex.addInDatabase(data.results);
-
+      await pokedex.addInDatabase(data.results);
+      
       data.results.forEach((pokemon: IPokemonPreview) => {
         filterType.value.push(pokemon.id);
       });
     }
+    pokedex.loading = false;
   }
 
   const setFavorites = async (favorite: boolean) => {

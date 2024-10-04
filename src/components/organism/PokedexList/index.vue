@@ -1,12 +1,12 @@
 <template>
     <section id="pokedex-list">
         <Loading v-if="pokedex.loading" />
-        <ul class="list" v-else-if="pokedexPag.pokemons.length > 0">
+        <ul class="list" v-else-if="!pokedex.loading && pokedexPag.pokemons.length > 0">
             <Card is="li" v-for="pokemon in pokedexPag.pokemons" :key="pokemon.id">
                 <PokemonCard :pokemon="pokemon" />
             </Card>
         </ul>
-        <div class="not-found" v-else-if="pokedexPag.pokemons.length == 0">
+        <div class="not-found" v-else-if="!pokedex.loading && pokedexPag.pokemons.length == 0">
             <h2>Pokemon não encontrado</h2>
         </div>
     </section>
